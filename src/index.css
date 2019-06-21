@@ -11,3 +11,24 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+
+.modalheader{
+  padding-top: 7px;
+    border-bottom-width: 0px;
+    padding-bottom: 0px;
+}
+
+.comment {
+  padding-right: 28px;
+}
+
+.perEx {
+  margin-left: 20px;
+    margin-top: 30px;
+}
+
+.rowContent th center{
+  padding-right: 30px;
+    padding-left: 29px;
+}

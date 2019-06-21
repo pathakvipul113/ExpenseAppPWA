@@ -192,7 +192,7 @@ class PersonDetails extends Component {
                     onSelect={key => this.setState({ key })}>
                     <Tab eventKey="group" title="Create Group" ><table border="1">
                         <thead>
-                            <tr>
+                            <tr class="rowContent">
                                 <th><center>Action</center></th>
                                 <th><center>Person Name</center></th>
                                 <th><center>Display Name</center></th>
@@ -203,19 +203,25 @@ class PersonDetails extends Component {
 
                         </tbody>
                         {persons && persons.map((item, i) => {
-                            return (
-                                <tr key={item.id}>
-
-                                    <td>
-                                        {/* <input type="checkbox" value={this.state.isChecked} onChange={this.handleCheckbox.bind(this, i)} id={item.id} /> */}
-                                        <button onClick={this.deleteSelected.bind(this, i)}>Delete</button>
-                                        <button onClick={this.editMode.bind(this, i)}>Edit</button>
-                                    </td>
-                                    <td><center>{item.name}</center></td>
-                                    <td><center>{item.nickname}</center></td>
-                                    <td><center>{item.comment}</center></td>
-                                </tr>
-                            )
+                            console.log(persons.length >= 1)
+                            if (persons.length != 0) {
+                                return (
+                                    <tr key={item.id}>
+                                        <td>
+                                            {/* <input type="checkbox" value={this.state.isChecked} onChange={this.handleCheckbox.bind(this, i)} id={item.id} /> */}
+                                            <button onClick={this.deleteSelected.bind(this, i)}>Delete</button>
+                                            <button onClick={this.editMode.bind(this, i)}>Edit</button>
+                                        </td>
+                                        <td><center>{item.name}</center></td>
+                                        <td><center>{item.nickname}</center></td>
+                                        <td><center>{item.comment}</center></td>
+                                    </tr>
+                                )
+                            }
+                            else {
+                                console.log("hi")
+                                return (<tr>Hi</tr>)
+                            }
                         })}
                     </table>
 
@@ -223,10 +229,13 @@ class PersonDetails extends Component {
                             bsStyle="primary"
                             bsSize="large"
                             onClick={this.open.bind(this)}
+                            className="perEx"
                         >
                             Add Person
         </Button>
-                        <button disabled={this.state.isExpenseDisabled} onClick={() => this.handleSelect("expense")}>Enter Expense</button>
+                        <Button
+                            bsStyle="primary"
+                            bsSize="large" disabled={this.state.isExpenseDisabled} onClick={() => this.handleSelect("expense")} className="perEx">Enter Expense</Button>
                     </Tab>
                     <Tab eventKey="expense" title="Enter Expenses" disabled={this.state.isExpenseDisabled}>Tab 2 content </Tab>
                     <Tab eventKey="payment" title="Compute Payments" disabled={this.state.isComputeDisabled}>Tab 3 content</Tab>
@@ -237,13 +246,13 @@ class PersonDetails extends Component {
 
 
                     <Modal show={this.state.showModal} onHide={this.close.bind(this)}>
-                        <Modal.Header closeButton>
+                        <Modal.Header closeButton className="modalheader">
                             <Modal.Title>New Person</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <div>Person Name: <input type="text" id="name" value={this.state.name} onChange={this.handleChange.bind(this)}></input></div>
-                            <div>Display Name: <input type="text" id="nickname" value={this.state.nickname} onChange={this.handleChange.bind(this)}></input></div>
-                            <div>Comment/ Description: <input type="text" id="comment" value={this.state.comment} onChange={this.handleChange.bind(this)}></input></div>
+                            <div><span>Person Name </span><input type="text" style={{ 'width': '280px', 'margin-left': '6px' }} id="name" value={this.state.name} onChange={this.handleChange.bind(this)}></input></div>
+                            <div><span>Display Name</span> <input type="text" style={{ 'margin-top': '25px' }} id="nickname" value={this.state.nickname} onChange={this.handleChange.bind(this)}></input></div>
+                            <div><span class="comment">Comment</span> <input type="text" style={{ 'margin-top': '25px', 'width': '280px' }} id="comment" value={this.state.comment} onChange={this.handleChange.bind(this)}></input></div>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.saveAndNew.bind(this)}>Save & New</Button>
@@ -253,13 +262,13 @@ class PersonDetails extends Component {
                     </Modal>
 
                     <Modal show={this.state.showModalSave} onHide={this.saveClose.bind(this)}>
-                        <Modal.Header closeButton>
+                        <Modal.Header closeButton className="modalheader">
                             <Modal.Title>Save Person</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                            <div>Person Name: <input type="text" id="name" value={this.state.name} onChange={this.handleChange.bind(this)}></input></div>
-                            <div>Display Name: <input type="text" id="nickname" value={this.state.nickname} onChange={this.handleChange.bind(this)}></input></div>
-                            <div>Comment/ Description: <input type="text" id="comment" value={this.state.comment} onChange={this.handleChange.bind(this)}></input></div>
+                            <div><span>Person Name</span> <input type="text" style={{ 'width': '280px', 'margin-left': '6px' }} id="name" value={this.state.name} onChange={this.handleChange.bind(this)}></input></div>
+                            <div><span>Display Name </span><input type="text" style={{ 'margin-top': '25px' }} id="nickname" value={this.state.nickname} onChange={this.handleChange.bind(this)}></input></div>
+                            <div><span class="comment">Comment</span> <input type="text" style={{ 'margin-top': '25px', 'width': '280px' }} id="comment" value={this.state.comment} onChange={this.handleChange.bind(this)}></input></div>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.saveClose.bind(this)}>Save</Button>
