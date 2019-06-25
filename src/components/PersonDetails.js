@@ -8,6 +8,7 @@ import { createPerson } from '../store/actions/addPersonAction'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import { Tab, Tabs } from 'react-bootstrap';
+import Expense from './Expenses'
 
 class PersonDetails extends Component {
 
@@ -24,7 +25,8 @@ class PersonDetails extends Component {
         isDisabled: true,
         key: 'group',
         isExpenseDisabled: true,
-        isComputeDisabled: true
+        isComputeDisabled: true,
+
     }
 
     handleSelect(value) {
@@ -78,6 +80,10 @@ class PersonDetails extends Component {
 
     close() {
         this.setState({ showModal: false });
+    }
+
+    Sclose() {
+        this.setState({ showModalSave: false });
     }
 
     saveOpen() {
@@ -184,15 +190,16 @@ class PersonDetails extends Component {
         }
 
         const { person, persons } = this.props;
+        console.log(person)
         return (
             <div>
-                <div>Sheet {person ? person.sheetName : ""}</div>
-                <div> Created on {person ? moment(person.createdAt.toDate()).format('MMMM Do YYYY, h:mm:ss a') : ""}</div>
+                <div className="created">Sheet Name: <b>{person ? person.sheetName : ""}</b></div>
+                <div className="created"> Created on {person ? moment(person.createdAt.toDate()).format('MMMM Do YYYY, h:mm:ss a') : ""}</div>
                 <Tabs activeKey={this.state.key}
                     onSelect={key => this.setState({ key })}>
                     <Tab eventKey="group" title="Create Group" ><table border="1">
                         <thead>
-                            <tr class="rowContent">
+                            <tr className="rowContent">
                                 <th><center>Action</center></th>
                                 <th><center>Person Name</center></th>
                                 <th><center>Display Name</center></th>
@@ -235,9 +242,16 @@ class PersonDetails extends Component {
         </Button>
                         <Button
                             bsStyle="primary"
-                            bsSize="large" disabled={this.state.isExpenseDisabled} onClick={() => this.handleSelect("expense")} className="perEx">Enter Expense</Button>
+                            bsSize="large" disabled={this.state.isExpenseDisabled}
+                            onClick={() => this.handleSelect("expense")}
+                            className="perEx">Enter Expense</Button>
                     </Tab>
-                    <Tab eventKey="expense" title="Enter Expenses" disabled={this.state.isExpenseDisabled}>Tab 2 content </Tab>
+                    <Tab eventKey="expense"
+                        title="Enter Expenses"
+                        disabled={this.state.isExpenseDisabled}>
+                        <Expense open={this.open}
+                            close={this.close} handleChange={this.handleChange} person={this.props.person} />
+                    </Tab>
                     <Tab eventKey="payment" title="Compute Payments" disabled={this.state.isComputeDisabled}>Tab 3 content</Tab>
                 </Tabs>
 
@@ -252,7 +266,7 @@ class PersonDetails extends Component {
                         <Modal.Body>
                             <div><span>Person Name </span><input type="text" style={{ 'width': '280px', 'margin-left': '6px' }} id="name" value={this.state.name} onChange={this.handleChange.bind(this)}></input></div>
                             <div><span>Display Name</span> <input type="text" style={{ 'margin-top': '25px' }} id="nickname" value={this.state.nickname} onChange={this.handleChange.bind(this)}></input></div>
-                            <div><span class="comment">Comment</span> <input type="text" style={{ 'margin-top': '25px', 'width': '280px' }} id="comment" value={this.state.comment} onChange={this.handleChange.bind(this)}></input></div>
+                            <div><span className="comment">Comment</span> <input type="text" style={{ 'margin-top': '25px', 'width': '280px' }} id="comment" value={this.state.comment} onChange={this.handleChange.bind(this)}></input></div>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.saveAndNew.bind(this)}>Save & New</Button>
@@ -261,18 +275,18 @@ class PersonDetails extends Component {
                         </Modal.Footer>
                     </Modal>
 
-                    <Modal show={this.state.showModalSave} onHide={this.saveClose.bind(this)}>
+                    <Modal show={this.state.showModalSave} onHide={this.Sclose.bind(this)}>
                         <Modal.Header closeButton className="modalheader">
                             <Modal.Title>Save Person</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <div><span>Person Name</span> <input type="text" style={{ 'width': '280px', 'margin-left': '6px' }} id="name" value={this.state.name} onChange={this.handleChange.bind(this)}></input></div>
                             <div><span>Display Name </span><input type="text" style={{ 'margin-top': '25px' }} id="nickname" value={this.state.nickname} onChange={this.handleChange.bind(this)}></input></div>
-                            <div><span class="comment">Comment</span> <input type="text" style={{ 'margin-top': '25px', 'width': '280px' }} id="comment" value={this.state.comment} onChange={this.handleChange.bind(this)}></input></div>
+                            <div><span className="comment">Comment</span> <input type="text" style={{ 'margin-top': '25px', 'width': '280px' }} id="comment" value={this.state.comment} onChange={this.handleChange.bind(this)}></input></div>
                         </Modal.Body>
                         <Modal.Footer>
                             <Button onClick={this.saveClose.bind(this)}>Save</Button>
-                            <Button onClick={this.saveClose.bind(this)}>Close</Button>
+                            <Button onClick={this.Sclose.bind(this)}>Close</Button>
                         </Modal.Footer>
                     </Modal>
 

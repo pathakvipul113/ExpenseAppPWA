@@ -32,3 +32,64 @@ code {
   padding-right: 30px;
     padding-left: 29px;
 }
+
+.date{
+  margin-right: 48px
+}
+
+.desc{
+  padding-right: 7px
+}
+
+.inputDesc{
+  margin-top: 9px;
+   width : 280px;
+    margin-left: 1px;
+    border-left-width: 2px
+}
+
+.amount{
+  margin-right: 31px;
+}
+
+.date{
+  margin-right: 55px
+}
+
+.expdesc{
+  padding-right: 7px;
+}
+
+.paid{
+  margin-right: 17px;
+}
+
+.expamount{
+  margin-right: 32px;
+}
+
+.expWho{
+  margin-right: 12px;
+}
+
+.divPaid{
+  margin-top: 5px
+}
+
+.paidradio{
+  padding-right: 15px
+}
+
+.datePanel{
+  width: 107px;
+}
+
+.dateexp{
+  padding-right: 25px;
+  padding-left: 25px;
+}
+
+.created{
+  margin-bottom: 7px;
+  margin-top: 7px;
+}
